@@ -2,32 +2,36 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>|
+      <router-link to="/vehicle">Vehicle</router-link>|
       <router-link to="/about">About</router-link>
+    </div>
+    <div class="logo-container">
+      <img alt="Vue logo" src="./assets/logo.png" />
     </div>
     <router-view />
   </div>
 </template>
 
 <style lang="scss">
+@import '@/assets/sass/variables';
 body {
   margin: 0;
   padding: 0;
-  background-color: #7ca363;
-  font-family: Monteserrat, Arial;
+  background-color: $light-green;
+  font-family: $font-family;
 }
 
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  // color: #2c3e50;
 }
 
 #nav {
   height: 30px;
   margin: 0;
   padding: 10px 0 0 0;
-  background-color: rgb(97, 126, 78);
+  background-color: $dark-green;
 
   a {
     max-height: 30px;
@@ -40,4 +44,21 @@ body {
     // }
   }
 }
+
+.logo-container {
+  display: flex;
+  justify-content: flex-start;
+  height: 90px;
+  background-color: white;
+  padding: auto;
+
+  > img {
+    height: 50px;
+    margin: auto 0 auto 2rem;
+  }
+}
 </style>
+
+
+<!--Load in global css stylesheet-->
+<style lang="scss" src="./assets/sass/main.scss"></style>

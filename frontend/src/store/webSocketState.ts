@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
+import { last, split } from "lodash";
 import { RootState } from "@/types/rootState";
 import { WebSocketState, Message } from "@/types/webSocketTypes";
 
@@ -9,13 +10,15 @@ Vue.use(Vuex);
 const state: WebSocketState = {
   isConnected: false,
   messageList: [],
-  connectionSocket: {}
+  connectionSocket: {},
+  currentVehicle: {} as Message
 };
 
 // getters
 export const getters: GetterTree<WebSocketState, RootState> = {
   messages: state => state.messageList,
-  isConnected: state => state.isConnected
+  isConnected: state => state.isConnected,
+  currentVehicleData: state => state.currentVehicle
 };
 
 // mutations types
@@ -35,6 +38,7 @@ const mutations: MutationTree<WebSocketState> = {
 
   IS_CONNECTED(state, isConnected: boolean) {
     state.isConnected = isConnected;
+    console.log("IS_CONNECTED", state.isConnected);
   },
 
   DISCONNECT(state) {
@@ -42,9 +46,20 @@ const mutations: MutationTree<WebSocketState> = {
   },
 
   ADD_MESSAGE(state, message) {
-    console.log("mutation socket_Data");
-    // state.socketMessage = message;
-    state.messageList.push(message);
+    if (state.messageList.length < 10) {
+      const gps: string[] = split(message.gps, "|", 2);
+      const gpsCoordinates: number[] = gps.map((element: string) => parseFloat(element));
+      const vehicleData: Message = { ...message };
+      vehicleData.gps = gpsCoordinates;
+      state.messageList.push(vehicleData);
+      console.log("data", JSON.stringify(vehicleData));
+    }
+  },
+
+  SET_CURRENT_VEHICLE(state, vehicleData: Message) {
+    console.log("mutation SET_CURRENT_VEHICLE", JSON.stringify(vehicleData));
+    state.currentVehicle = { ...vehicleData };
+    console.log("mutation SET_CURRENT_VEHICLE", JSON.stringify(state.currentVehicle));
   }
 };
 
@@ -55,29 +70,45 @@ export const actions: ActionTree<WebSocketState, RootState> = {
     commit("CONNECT", socket);
 
     socket.onopen = function() {
-      console.log("ws::open : connection established ");
-      // this.status = 'Connected';
       commit("IS_CONNECTED", true);
+      console.log("onopen: " + state.isConnected);
     };
 
     socket.onerror = function(errorEvent: any) {
       console.log("WebSocket ERROR: " + JSON.stringify(errorEvent, null, 4));
       commit("IS_CONNECTED", false);
     };
-  },
 
-  getMessages({ commit, state }) {
-    state.connectionSocket.onmessage = function(messageEvent: any) {
+    socket.onmessage = function(messageEvent: any) {
       const wsMessage = messageEvent.data;
       if (wsMessage.indexOf("error") > 0) {
         console.error("ws::msg_in:error: " + wsMessage.error);
       } else {
-        console.info("ws::msg_in: " + wsMessage);
-        commit("ADD_MESSAGE", wsMessage);
-        console.log("cnt messages", state.messageList.length);
+        // console.info("ws::msg_in: " + wsMessage);
+        commit("ADD_MESSAGE", JSON.parse(wsMessage));
+        // console.log("cnt messages", state.messageList.length);
       }
     };
+  },
+
+  selectVehicleData({ commit, state }) {
+    const lastIndex: number = state.messageList.length;
+    commit("SET_CURRENT_VEHICLE", last(state.messageList));
   }
+
+  // getMessages({ commit, state }) {
+  //   console.info("**** GET MESSAGE");
+  //   state.connectionSocket.onmessage = function(messageEvent: any) {
+  //     const wsMessage = messageEvent.data;
+  //     if (wsMessage.indexOf("error") > 0) {
+  //       console.error("ws::msg_in:error: " + wsMessage.error);
+  //     } else {
+  //       console.info("ws::msg_in: " + wsMessage);
+  //       commit("ADD_MESSAGE", wsMessage);
+  //       console.log("cnt messages", state.messageList.length);
+  //     }
+  //   };
+  // }
 };
 
 export const webSocketState = {
