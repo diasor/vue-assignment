@@ -1,20 +1,12 @@
 const express = require("express")
 const http = require("http")
 const WebSocket = require("ws")
-const cors = require("cors")
 
 // Broadcaster is a class that emit event when a new datapoint arrive
 // This is just an emulation of real life situation where datapoint came in randomly
 const Broadcaster = require("./Broadcaster")
 
 const app = express()
-
-// Added CORS to allow connection from the frontend
-const corsOptions = {
-  origin: "http://localhost:8080",
-  credentials: true
-}
-app.use(cors(corsOptions))
 
 // Create own HTTP server instead of using app.listen() in order to share the same port with WS
 const httpServer = http.createServer(app)
@@ -41,7 +33,6 @@ broadcaster.start()
 broadcaster.on("data", data => {
   // Send data to all connected clients on websocket
   wss.clients.forEach(socket => {
-    //console.log("data", data)
     socket.send(JSON.stringify(data))
   })
 })

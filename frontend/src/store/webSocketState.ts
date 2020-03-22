@@ -2,8 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { last, split } from "lodash";
+import moment from "moment";
 import { RootState } from "@/types/rootState";
-import { WebSocketState, Message } from "@/types/webSocketTypes";
+import { WebSocketState, Message, GraphData } from "@/types/webSocketTypes";
 
 Vue.use(Vuex);
 
@@ -11,34 +12,27 @@ const state: WebSocketState = {
   isConnected: false,
   messageList: [],
   connectionSocket: {},
-  currentVehicle: {} as Message
+  currentVehicle: {} as Message,
+  currentSpeedData: [],
+  currentSOCData: []
 };
 
 // getters
 export const getters: GetterTree<WebSocketState, RootState> = {
   messages: state => state.messageList,
   isConnected: state => state.isConnected,
-  currentVehicleData: state => state.currentVehicle
-};
-
-// mutations types
-const mutationTypes = {
-  CONNECT: "SOCKET_CONNECT",
-  DISCONNECT: "SOCKET_DISCONNECT",
-  ADD_ITEM_TO_CART_SUCCESS: "ADD_ITEM_TO_CART_SUCCESS",
-  REMOVE_ITEM_FROM_CART: "REMOVE_ITEM_FROM_CART",
-  REMOVE_ITEM_FROM_CART_SUCCESS: "REMOVE_ITEM_FROM_CART_SUCCESS"
+  currentVehicleData: state => state.currentVehicle,
+  currentSpeedData: state => state.messageList,
+  currentSOCData: state => state.currentSOCData
 };
 
 const mutations: MutationTree<WebSocketState> = {
   CONNECT(state, socket) {
-    console.log("mutation connect");
     state.connectionSocket = socket;
   },
 
   IS_CONNECTED(state, isConnected: boolean) {
     state.isConnected = isConnected;
-    console.log("IS_CONNECTED", state.isConnected);
   },
 
   DISCONNECT(state) {
@@ -46,20 +40,19 @@ const mutations: MutationTree<WebSocketState> = {
   },
 
   ADD_MESSAGE(state, message) {
-    if (state.messageList.length < 10) {
+    if (state.messageList.length < 50) {
       const gps: string[] = split(message.gps, "|", 2);
       const gpsCoordinates: number[] = gps.map((element: string) => parseFloat(element));
-      const vehicleData: Message = { ...message };
+      const parsedTime = new Date(moment(message.time).format("YYYY-MM-DD HH:mm:ss"));
+      const vehicleData: Message = { ...message, parsedTime };
       vehicleData.gps = gpsCoordinates;
       state.messageList.push(vehicleData);
-      console.log("data", JSON.stringify(vehicleData));
+      // console.log(`Time: ${vehicleData.time} - SOC: ${vehicleData.soc} - SPEED: ${vehicleData.speed}`);
     }
   },
 
   SET_CURRENT_VEHICLE(state, vehicleData: Message) {
-    console.log("mutation SET_CURRENT_VEHICLE", JSON.stringify(vehicleData));
     state.currentVehicle = { ...vehicleData };
-    console.log("mutation SET_CURRENT_VEHICLE", JSON.stringify(state.currentVehicle));
   }
 };
 
@@ -71,11 +64,12 @@ export const actions: ActionTree<WebSocketState, RootState> = {
 
     socket.onopen = function() {
       commit("IS_CONNECTED", true);
-      console.log("onopen: " + state.isConnected);
+      console.info(`On open: ${state.isConnected}`);
     };
 
     socket.onerror = function(errorEvent: any) {
-      console.log("WebSocket ERROR: " + JSON.stringify(errorEvent, null, 4));
+      const errorMessage: string = JSON.stringify(errorEvent, null, 4);
+      console.error(`WebSocket ERROR: ${errorMessage}`);
       commit("IS_CONNECTED", false);
     };
 
@@ -86,29 +80,13 @@ export const actions: ActionTree<WebSocketState, RootState> = {
       } else {
         // console.info("ws::msg_in: " + wsMessage);
         commit("ADD_MESSAGE", JSON.parse(wsMessage));
-        // console.log("cnt messages", state.messageList.length);
       }
     };
   },
 
   selectVehicleData({ commit, state }) {
-    const lastIndex: number = state.messageList.length;
     commit("SET_CURRENT_VEHICLE", last(state.messageList));
   }
-
-  // getMessages({ commit, state }) {
-  //   console.info("**** GET MESSAGE");
-  //   state.connectionSocket.onmessage = function(messageEvent: any) {
-  //     const wsMessage = messageEvent.data;
-  //     if (wsMessage.indexOf("error") > 0) {
-  //       console.error("ws::msg_in:error: " + wsMessage.error);
-  //     } else {
-  //       console.info("ws::msg_in: " + wsMessage);
-  //       commit("ADD_MESSAGE", wsMessage);
-  //       console.log("cnt messages", state.messageList.length);
-  //     }
-  //   };
-  // }
 };
 
 export const webSocketState = {

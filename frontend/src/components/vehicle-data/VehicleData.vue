@@ -28,12 +28,12 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import LocalProgressBar from "@/components/progress-bar/LocalProgressBar";
-import { Component, Prop } from "vue-property-decorator";
+import Vue from 'vue';
+import LocalProgressBar from '@/components/progress-bar/LocalProgressBar';
+import { Component, Prop } from 'vue-property-decorator';
 
 @Component({
-  name: "VehicleData",
+  name: 'VehicleData',
   components: {
     LocalProgressBar
   }
@@ -44,17 +44,12 @@ export default class VehicleData extends Vue {
   @Prop({ required: true }) energy!: number;
   @Prop({ required: true }) odo!: number;
 
-  // value: number = 70;
   socPercentage: number = this.soc / 100;
-  mounted() {
-    // this.$Progress.start();
-    // this.$Progress.finish();
-  }
 }
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/sass/variables";
+@import '@/assets/sass/variables';
 
 .vehicle-data {
   display: grid;
@@ -65,8 +60,9 @@ export default class VehicleData extends Vue {
   width: 100%;
   margin: 0.2rem 1rem;
   padding: 0.2rem;
-  border: 2px solid $dark-green;
+  border: 2px solid $background-color;
   border-radius: 0.5rem;
+  background-color: $background-color;
 }
 
 .data-cell {
@@ -75,9 +71,10 @@ export default class VehicleData extends Vue {
   padding: 0.2rem;
 
   & label {
-    font-size: 1.1rem;
     font-family: $font-family;
-    padding: 0.5rem 0 0 0;
+    font-size: $title-medium;
+    font-weight: bold;
+    padding: 0.9rem 0 0.3rem 0;
   }
 
   &__speed {
@@ -88,6 +85,7 @@ export default class VehicleData extends Vue {
   &__speed-bar {
     grid-column: 1 / 3;
     grid-row: 2;
+    margin: 0;
   }
 
   &__soc {

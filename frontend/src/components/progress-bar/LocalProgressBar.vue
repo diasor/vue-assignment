@@ -3,13 +3,13 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import ProgressBar from "vuejs-progress-bar";
-import { Component, Prop } from "vue-property-decorator";
+import Vue from 'vue';
+import ProgressBar from 'vuejs-progress-bar';
+import { Component, Prop } from 'vue-property-decorator';
 
 Vue.use(ProgressBar);
 @Component({
-  name: "LocalProgressBar"
+  name: 'LocalProgressBar'
 })
 export default class LocalProgressBar extends Vue {
   @Prop({ required: true }) paramValue!: number;
@@ -17,21 +17,21 @@ export default class LocalProgressBar extends Vue {
 
   options = {
     text: {
-      color: "#FFFFFF",
+      color: '#FFFFFF',
       shadowEnable: true,
-      shadowColor: "#000000",
-      fontSize: 14,
-      fontFamily: "Montserrat",
+      shadowColor: '#000000',
+      fontSize: 12,
+      fontFamily: 'Montserrat',
       dynamicPosition: false,
       hideText: false
     },
     progress: {
-      color: "#696969",
-      backgroundColor: "#C0C0C0"
+      color: '#696969',
+      backgroundColor: '#C0C0C0'
     },
     layout: {
-      height: 35,
-      width: 300,
+      height: 30,
+      width: 250,
       verticalTextAlign: 61,
       horizontalTextAlign: 43,
       zeroOffset: 0,
@@ -44,10 +44,10 @@ export default class LocalProgressBar extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/sass/variables";
-.vehicle-data {
-  width: 40%;
-  margin: 2rem 1rem;
-  font-family: $font-family;
-}
+@import '@/assets/sass/variables';
+// .vehicle-data {
+//   width: 40%;
+//   margin: 1rem 1rem;
+//   font-family: $font-family;
+// }
 </style>
