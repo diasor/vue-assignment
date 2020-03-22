@@ -12,6 +12,18 @@
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+
+@Component({
+  name: 'App'
+})
+export default class App extends Vue {
+  el = '#viricity';
+}
+</script>
+
 <style lang="scss">
 @import '@/assets/sass/variables';
 body {
@@ -28,7 +40,7 @@ body {
 }
 
 #nav {
-  height: 30px;
+  height: 25px;
   margin: 0;
   padding: 10px 0 0 0;
   background-color: $dark-green;
@@ -48,7 +60,7 @@ body {
 .logo-container {
   display: flex;
   justify-content: flex-start;
-  height: 90px;
+  height: 70px;
   background-color: white;
   padding: auto;
 

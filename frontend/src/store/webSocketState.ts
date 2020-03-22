@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { ActionTree, GetterTree, MutationTree } from "vuex";
-import { last, split } from "lodash";
+import { last, split, drop } from "lodash";
 import moment from "moment";
 import { RootState } from "@/types/rootState";
 import { WebSocketState, Message, GraphData } from "@/types/webSocketTypes";
@@ -40,13 +40,17 @@ const mutations: MutationTree<WebSocketState> = {
   },
 
   ADD_MESSAGE(state, message) {
-    if (state.messageList.length < 50) {
-      const gps: string[] = split(message.gps, "|", 2);
-      const gpsCoordinates: number[] = gps.map((element: string) => parseFloat(element));
-      const parsedTime = new Date(moment(message.time).format("YYYY-MM-DD HH:mm:ss"));
-      const vehicleData: Message = { ...message, parsedTime };
-      vehicleData.gps = gpsCoordinates;
-      state.messageList.push(vehicleData);
+    const gps: string[] = split(message.gps, "|", 2);
+    const gpsCoordinates: number[] = gps.map((element: string) => parseFloat(element));
+    const parsedTime = new Date(moment(message.time).format("YYYY-MM-DD HH:mm:ss"));
+    const vehicleData: Message = { ...message, parsedTime };
+    vehicleData.gps = gpsCoordinates;
+    state.messageList.push(vehicleData);
+    // console.log("add message", vehicleData.time);
+    state.currentVehicle = vehicleData;
+    if (state.messageList.length >= 50) {
+      state.messageList = drop(state.messageList);
+      // console.log("CNT ", state.messageList.length);
       // console.log(`Time: ${vehicleData.time} - SOC: ${vehicleData.soc} - SPEED: ${vehicleData.speed}`);
     }
   },

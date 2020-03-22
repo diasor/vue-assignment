@@ -120,6 +120,7 @@ export default class LineChart extends Vue {
 
   mounted() {
     this.initializeChart();
+    console.log('MOUNTED');
   }
 }
 </script>

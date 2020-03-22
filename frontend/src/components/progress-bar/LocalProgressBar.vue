@@ -12,7 +12,7 @@ Vue.use(ProgressBar);
   name: 'LocalProgressBar'
 })
 export default class LocalProgressBar extends Vue {
-  @Prop({ required: true }) paramValue!: number;
+  @Prop({ required: true, default: 0 }) paramValue!: number;
   @Prop({ required: true }) paramType!: string;
 
   options = {
@@ -43,11 +43,3 @@ export default class LocalProgressBar extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
-@import '@/assets/sass/variables';
-// .vehicle-data {
-//   width: 40%;
-//   margin: 1rem 1rem;
-//   font-family: $font-family;
-// }
-</style>

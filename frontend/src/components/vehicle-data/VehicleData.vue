@@ -39,12 +39,12 @@ import { Component, Prop } from 'vue-property-decorator';
   }
 })
 export default class VehicleData extends Vue {
-  @Prop({ required: true }) speed!: number;
-  @Prop({ required: true }) soc!: number;
-  @Prop({ required: true }) energy!: number;
-  @Prop({ required: true }) odo!: number;
+  @Prop({ required: true, default: 0 }) speed!: number;
+  @Prop({ required: true, default: 0 }) soc!: number;
+  @Prop({ required: true, default: 0 }) energy!: number;
+  @Prop({ required: true, default: 0 }) odo!: number;
 
-  socPercentage: number = this.soc / 100;
+  socPercentage: number = this.soc === 0 ? 0 : this.soc / 100;
 }
 </script>
 

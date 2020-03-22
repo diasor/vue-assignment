@@ -1,13 +1,11 @@
 <template>
   <div class="main-container">
     <div class="vehicle-container">
-      <!-- <div class="data-cell data-cell__map"> -->
       <div class="map-container">
-        <Map :vechiclePosition="vehicleData" />
+        <Map :vechiclePosition="currentVehicleData" />
       </div>
-      <!-- <div class="data-cell data-cell__data"> -->
       <div class="data-container">
-        <vehicleData
+        <vehicle-data
           :speed="currentVehicleData.speed"
           :soc="currentVehicleData.soc"
           :energy="currentVehicleData.energy"
@@ -16,7 +14,8 @@
       </div>
     </div>
     <div class="charts-container" id="speedData">
-      <LineChart
+      <line-chart
+        :key="speedChartKey"
         title="Speed Profile"
         yTitle="Speed (km/h)"
         xTitle="Time"
@@ -25,7 +24,8 @@
       />
     </div>
     <div class="charts-container" id="socData">
-      <LineChart
+      <line-chart
+        :key="socChartKey"
         title="State Of Charge Profile"
         yTitle="SoC (%)"
         xTitle="Time"
@@ -51,7 +51,7 @@ const SocketNameSpace = namespace('webSocketState/');
   components: {
     Map,
     vehicleData: VehicleData,
-    LineChart
+    lineChart: LineChart
   }
 })
 export default class Vehicle extends Vue {
@@ -60,12 +60,33 @@ export default class Vehicle extends Vue {
   @SocketNameSpace.Getter('getMessage') getMessage!: any;
   @SocketNameSpace.Getter('messages') messages!: any;
 
+  timeout = 0;
+  lastKey: number = 0;
+  speedChartKey: string = 'speedChartKey';
+  socChartKey: string = 'socChartKey';
+
   get vehicleData() {
     return this.currentVehicleData;
   }
 
   get allMessages() {
     return this.messages;
+  }
+
+  reloadComponents() {
+    this.lastKey = this.lastKey + 1;
+    console.log('******reloading ...', this.lastKey);
+    this.speedChartKey = `speedChartKey_${this.lastKey}`;
+    this.socChartKey = `socChartKey_${this.lastKey}`;
+    console.log('speedChartKey', this.speedChartKey);
+    this.timeout = setTimeout(() => this.reloadComponents(), 5000);
+  }
+  mounted() {
+    this.timeout = setTimeout(() => this.reloadComponents(), 5000);
+  }
+
+  beforeDestroy() {
+    clearTimeout(this.timeout);
   }
 }
 </script>
