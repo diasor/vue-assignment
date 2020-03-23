@@ -1,30 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
+    <div class="green-bar">
+      <label> English </label>
     </div>
-    <div class="logo-container">
-      <img alt="Vue logo" src="./assets/logo.png" />
+    <div class="navigation-container">
+      <div class="logo-container">
+        <img alt="Vue logo" src="./assets/logo.png" />
+      </div>
+      <div class="nav">
+        <router-link to="/">VEHICLE DASHBOARD</router-link>
+        <router-link to="/documentation">DOCUMENTATION</router-link>
+      </div>
     </div>
     <router-view />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import Vue from "vue";
+import { Component } from "vue-property-decorator";
 
 @Component({
-  name: 'App'
+  name: "App"
 })
 export default class App extends Vue {
-  el = '#viricity';
+  el = "#viricity";
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/sass/variables';
+@import "@/assets/sass/variables";
 body {
   margin: 0;
   padding: 0;
@@ -38,38 +43,55 @@ body {
   text-align: center;
 }
 
-#nav {
+.green-bar {
   height: 25px;
   margin: 0;
-  padding: 10px 0 0 0;
+  padding: 10px 2rem 0 0;
   background-color: $dark-green;
+  text-align: right;
 
-  a {
-    max-height: 30px;
-    padding: 10px 5px 0 0;
+  & label {
     color: white;
-
-    // &.router-link-exact-active {
-    //   background-color: white;
-    //   color: rgb(97, 126, 78);
-    // }
   }
+}
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  background-color: white;
 }
 
 .logo-container {
   display: flex;
   justify-content: flex-start;
-  height: 60px;
-  background-color: white;
   padding: auto;
-
+  width: 30%;
   > img {
     height: 50px;
     margin: auto 0 auto 2rem;
   }
 }
-</style>
 
+.nav {
+  display: flex;
+  justify-content: flex-end;
+  width: 70%;
+  margin: 0;
+  padding: 10px 0 0 0;
+
+  a {
+    max-height: 30px;
+    padding: 10px 2rem 0 0;
+    font-size: 14px;
+    color: #363636;
+    text-decoration: none;
+
+    &:hover {
+      color: $light-green;
+    }
+  }
+}
+</style>
 
 <!--Load in global css stylesheet-->
 <style lang="scss" src="./assets/sass/main.scss"></style>

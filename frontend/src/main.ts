@@ -1,6 +1,5 @@
 import Vue from "vue";
 import App from "./App.vue";
-import VueMeta from "vue-meta";
 import * as VueGoogleMaps from "vue2-google-maps";
 import router from "./router";
 import store from "./store";
@@ -12,7 +11,6 @@ Vue.use(VueGoogleMaps, {
   }
 });
 
-Vue.use(VueMeta);
 Vue.config.productionTip = false;
 
 new Vue({

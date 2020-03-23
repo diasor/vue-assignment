@@ -43,34 +43,31 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { namespace } from 'vuex-class';
-import { Component } from 'vue-property-decorator';
-// import { Message } from "@/types/webSocketTypes";
-import GoogleMap from '@/components/maps/GoogleMap';
-import VehicleData from '@/components/vehicle-data/VehicleData';
-import LineChart from '@/components/charts/LineChart';
+import Vue from "vue";
+import { namespace } from "vuex-class";
+import { Component } from "vue-property-decorator";
+import GoogleMap from "@/components/maps/GoogleMap";
+import VehicleData from "@/components/vehicle-data/VehicleData";
+import LineChart from "@/components/charts/LineChart";
 
-const SocketNameSpace = namespace('webSocketState/');
+const SocketNameSpace = namespace("webSocketState/");
 @Component({
-  name: 'Vehicle',
+  name: "VehicleDashboard",
   components: {
     googleMap: GoogleMap,
     vehicleData: VehicleData,
     lineChart: LineChart
   }
 })
-export default class Vehicle extends Vue {
-  @SocketNameSpace.Getter('isConnected') isConnected!: boolean;
-  @SocketNameSpace.Getter('currentVehicleData') currentVehicleData!: any;
-  @SocketNameSpace.Getter('getMessage') getMessage!: any;
-  @SocketNameSpace.Getter('messages') messages!: any;
+export default class VehicleDashboard extends Vue {
+  @SocketNameSpace.Getter("currentVehicleData") currentVehicleData!: any;
+  @SocketNameSpace.Getter("messages") messages!: any;
 
   timeout = 0;
   lastKey: number = 0;
-  speedChartKey: string = 'speedChartKey';
-  socChartKey: string = 'socChartKey';
-  mapChartKey: string = 'mapChartKey';
+  speedChartKey: string = "speedChartKey";
+  socChartKey: string = "socChartKey";
+  mapChartKey: string = "mapChartKey";
 
   get vehicleData() {
     return this.currentVehicleData;
@@ -87,6 +84,7 @@ export default class Vehicle extends Vue {
     this.socChartKey = `socChartKey_${this.lastKey}`;
     this.timeout = setTimeout(() => this.reloadComponents(), 5000);
   }
+
   mounted() {
     this.timeout = setTimeout(() => this.reloadComponents(), 5000);
   }
@@ -98,7 +96,7 @@ export default class Vehicle extends Vue {
 </script>
 
 <style lang="scss">
-@import '@/assets/sass/variables';
+@import "@/assets/sass/variables";
 $margin-left: 2rem;
 
 .main-container {
