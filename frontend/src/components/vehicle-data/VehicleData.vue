@@ -58,8 +58,8 @@ export default class VehicleData extends Vue {
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   width: 100%;
-  margin: 0.2rem 1rem;
-  padding: 0.2rem;
+  margin: 0;
+  padding: 1rem 2rem;
   border: 2px solid $background-color;
   border-radius: 0.5rem;
   background-color: $background-color;

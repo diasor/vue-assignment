@@ -4,7 +4,7 @@ import { ActionTree, GetterTree, MutationTree } from "vuex";
 import { last, split, drop } from "lodash";
 import moment from "moment";
 import { RootState } from "@/types/rootState";
-import { WebSocketState, Message, GraphData } from "@/types/webSocketTypes";
+import { WebSocketState, Message } from "@/types/webSocketTypes";
 
 Vue.use(Vuex);
 
@@ -46,12 +46,9 @@ const mutations: MutationTree<WebSocketState> = {
     const vehicleData: Message = { ...message, parsedTime };
     vehicleData.gps = gpsCoordinates;
     state.messageList.push(vehicleData);
-    // console.log("add message", vehicleData.time);
     state.currentVehicle = vehicleData;
     if (state.messageList.length >= 50) {
       state.messageList = drop(state.messageList);
-      // console.log("CNT ", state.messageList.length);
-      // console.log(`Time: ${vehicleData.time} - SOC: ${vehicleData.soc} - SPEED: ${vehicleData.speed}`);
     }
   },
 
@@ -82,7 +79,6 @@ export const actions: ActionTree<WebSocketState, RootState> = {
       if (wsMessage.indexOf("error") > 0) {
         console.error("ws::msg_in:error: " + wsMessage.error);
       } else {
-        // console.info("ws::msg_in: " + wsMessage);
         commit("ADD_MESSAGE", JSON.parse(wsMessage));
       }
     };

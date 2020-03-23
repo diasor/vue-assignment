@@ -120,7 +120,6 @@ export default class LineChart extends Vue {
 
   mounted() {
     this.initializeChart();
-    console.log('MOUNTED');
   }
 }
 </script>
@@ -129,7 +128,7 @@ export default class LineChart extends Vue {
 @import '@/assets/sass/variables';
 
 .line-chart {
-  max-height: 280px;
+  max-height: 200px;
   width: 100%;
   margin: 0;
   padding: 0 0 0.2rem 0;

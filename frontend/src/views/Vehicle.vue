@@ -2,7 +2,11 @@
   <div class="main-container">
     <div class="vehicle-container">
       <div class="map-container">
-        <Map :vechiclePosition="currentVehicleData" />
+        <google-map
+          :key="mapChartKey"
+          :currentPosition="currentVehicleData"
+          :previousPositions="allMessages"
+        />
       </div>
       <div class="data-container">
         <vehicle-data
@@ -14,24 +18,26 @@
       </div>
     </div>
     <div class="charts-container" id="speedData">
-      <line-chart
-        :key="speedChartKey"
-        title="Speed Profile"
-        yTitle="Speed (km/h)"
-        xTitle="Time"
-        data-key="speed"
-        :data="allMessages"
-      />
-    </div>
-    <div class="charts-container" id="socData">
-      <line-chart
-        :key="socChartKey"
-        title="State Of Charge Profile"
-        yTitle="SoC (%)"
-        xTitle="Time"
-        data-key="soc"
-        :data="allMessages"
-      />
+      <div class="one-chart">
+        <line-chart
+          :key="speedChartKey"
+          title="Speed Profile"
+          yTitle="Speed (km/h)"
+          xTitle="Time"
+          data-key="speed"
+          :data="allMessages"
+        />
+      </div>
+      <div class="one-chart" id="socData">
+        <line-chart
+          :key="socChartKey"
+          title="State Of Charge Profile"
+          yTitle="SoC (%)"
+          xTitle="Time"
+          data-key="soc"
+          :data="allMessages"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -41,7 +47,7 @@ import Vue from 'vue';
 import { namespace } from 'vuex-class';
 import { Component } from 'vue-property-decorator';
 // import { Message } from "@/types/webSocketTypes";
-import Map from '@/components/maps/Map';
+import GoogleMap from '@/components/maps/GoogleMap';
 import VehicleData from '@/components/vehicle-data/VehicleData';
 import LineChart from '@/components/charts/LineChart';
 
@@ -49,7 +55,7 @@ const SocketNameSpace = namespace('webSocketState/');
 @Component({
   name: 'Vehicle',
   components: {
-    Map,
+    googleMap: GoogleMap,
     vehicleData: VehicleData,
     lineChart: LineChart
   }
@@ -64,6 +70,7 @@ export default class Vehicle extends Vue {
   lastKey: number = 0;
   speedChartKey: string = 'speedChartKey';
   socChartKey: string = 'socChartKey';
+  mapChartKey: string = 'mapChartKey';
 
   get vehicleData() {
     return this.currentVehicleData;
@@ -75,10 +82,9 @@ export default class Vehicle extends Vue {
 
   reloadComponents() {
     this.lastKey = this.lastKey + 1;
-    console.log('******reloading ...', this.lastKey);
+    this.mapChartKey = `mapChartKey_${this.lastKey}`;
     this.speedChartKey = `speedChartKey_${this.lastKey}`;
     this.socChartKey = `socChartKey_${this.lastKey}`;
-    console.log('speedChartKey', this.speedChartKey);
     this.timeout = setTimeout(() => this.reloadComponents(), 5000);
   }
   mounted() {
@@ -93,6 +99,7 @@ export default class Vehicle extends Vue {
 
 <style lang="scss">
 @import '@/assets/sass/variables';
+$margin-left: 2rem;
 
 .main-container {
   display: flex;
@@ -116,22 +123,30 @@ export default class Vehicle extends Vue {
 }
 
 .map-container {
-  height: 30%;
-  width: 60%;
+  height: 15rem;
+  width: 46%;
   max-width: 45vw;
-  margin: 0;
-  border: 2px solid $background-color;
+  margin: 0 $margin-left;
   border-radius: 0.5rem;
+  border: 2px solid $background-color;
 }
 
 .data-container {
+  height: 15rem;
   width: 30%;
 }
 
 .charts-container {
   display: flex;
-  width: 98%;
-  margin: 0 0 1rem 0;
+  width: 97%;
+  margin: 0 $margin-left 1rem $margin-left;
+}
+
+.one-chart {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin: 0 2rem 0 0;
   border-radius: 0.5rem;
   border: 2px solid $background-color;
   border-radius: 0.5rem;

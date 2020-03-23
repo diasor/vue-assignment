@@ -2,7 +2,6 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>|
-      <router-link to="/vehicle">Vehicle</router-link>|
       <router-link to="/about">About</router-link>
     </div>
     <div class="logo-container">
@@ -60,7 +59,7 @@ body {
 .logo-container {
   display: flex;
   justify-content: flex-start;
-  height: 70px;
+  height: 60px;
   background-color: white;
   padding: auto;
 

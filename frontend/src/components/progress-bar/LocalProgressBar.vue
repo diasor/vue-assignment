@@ -1,5 +1,5 @@
 <template>
-  <ProgressBar :options="options" :value="paramValue" />
+  <ProgressBar :options="options" :value="value" />
 </template>
 
 <script lang="ts">
@@ -15,6 +15,11 @@ export default class LocalProgressBar extends Vue {
   @Prop({ required: true, default: 0 }) paramValue!: number;
   @Prop({ required: true }) paramType!: string;
 
+  get value() {
+    return typeof this.paramValue === 'string' || this.paramValue < 0
+      ? 0
+      : this.paramValue;
+  }
   options = {
     text: {
       color: '#FFFFFF',

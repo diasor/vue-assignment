@@ -1,5 +1,5 @@
 <template>
-  <vl-map
+  <!-- <vl-map
     :load-tiles-while-animating="true"
     :load-tiles-while-interacting="true"
     data-projection="EPSG:4326"
@@ -15,7 +15,7 @@
         <vl-style-icon src="../../assets/marker3.png" :scale="0.4" :anchor="[0.5, 1]"></vl-style-icon>
       </vl-style-box>
     </vl-feature>
-  </vl-map>
+  </vl-map>-->
 </template>
 
 <script lang="ts">
