@@ -183,7 +183,7 @@
 }
 
 .main-screen {
-  margin: 1rem auto;
+  margin: 1rem auto 0 auto;
   width: 98%;
   border-radius: 0.5rem;
 }
