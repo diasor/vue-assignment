@@ -122,11 +122,11 @@ $component-height: 14rem;
   padding: 0;
   background-color: transparent;
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: $tablet-screen) {
     margin: 0 2rem;
   }
 
-  @media screen and (min-width: $min-width) {
+  @media screen and (min-width: $medium-screen) {
     flex-direction: row;
     width: 97%;
     margin: 0 1rem;
@@ -144,7 +144,7 @@ $component-height: 14rem;
   border: 2px solid $background-color;
   border-radius: 0.5rem;
 
-  @media screen and (min-width: $min-width) {
+  @media screen and (min-width: $medium-screen) {
     flex-direction: row;
     width: 50%;
     margin: 0 2rem 0 0;

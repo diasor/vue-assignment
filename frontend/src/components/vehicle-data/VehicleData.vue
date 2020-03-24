@@ -64,7 +64,7 @@ export default class VehicleData extends Vue {
   border-radius: 0.5rem;
   background-color: $background-color;
 
-  @media screen and (min-width: $min-width) {
+  @media screen and (min-width: $medium-screen) {
     padding: 0.5rem 4rem 1rem 4rem;
   }
 }

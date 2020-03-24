@@ -76,7 +76,7 @@ body {
     margin: auto 0 auto 0.5rem;
   }
 
-  @media screen and (min-width: $min-width) {
+  @media screen and (min-width: $medium-screen) {
     width: 30%;
     > img {
       height: 50px;
@@ -103,12 +103,12 @@ body {
       color: $light-green;
     }
 
-    @media screen and (min-width: 700px) {
+    @media screen and (min-width: $tablet-screen) {
       padding: 15px 2rem 0 0;
       font-size: 12px;
     }
 
-    @media screen and (min-width: $min-width) {
+    @media screen and (min-width: $medium-screen) {
       padding: 10px 2rem 0 0;
       font-size: 14px;
     }
