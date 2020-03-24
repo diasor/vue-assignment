@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <gmap-map :center="center" :zoom="15" style="width:100%;  height: 15rem;">
-      <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m.position"
-        :icon="m.icon"
-        @click="center = m.position"
-      ></gmap-marker>
-    </gmap-map>
-  </div>
+  <gmap-map :center="center" :zoom="15" style="width:100%;  height: 14rem;">
+    <gmap-marker
+      :key="index"
+      v-for="(m, index) in markers"
+      :position="m.position"
+      :icon="m.icon"
+      @click="center = m.position"
+    ></gmap-marker>
+  </gmap-map>
 </template>
 
 <script lang="ts">

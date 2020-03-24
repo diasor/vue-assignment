@@ -1,14 +1,14 @@
 <template>
   <div class="main-container">
     <div class="vehicle-container">
-      <div class="map-container">
+      <div class="single-component">
         <google-map
           :key="mapChartKey"
           :currentPosition="currentVehicleData"
           :previousPositions="allMessages"
         />
       </div>
-      <div class="data-container">
+      <div class="single-component">
         <vehicle-data
           :speed="currentVehicleData.speed"
           :soc="currentVehicleData.soc"
@@ -17,8 +17,8 @@
         />
       </div>
     </div>
-    <div class="charts-container" id="speedData">
-      <div class="one-chart">
+    <div class="vehicle-container">
+      <div class="single-component">
         <line-chart
           :key="speedChartKey"
           title="Speed Profile"
@@ -28,7 +28,7 @@
           :data="allMessages"
         />
       </div>
-      <div class="one-chart" id="socData">
+      <div class="single-component">
         <line-chart
           :key="socChartKey"
           title="State Of Charge Profile"
@@ -43,16 +43,16 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { namespace } from "vuex-class";
-import { Component } from "vue-property-decorator";
-import GoogleMap from "@/components/maps/GoogleMap";
-import VehicleData from "@/components/vehicle-data/VehicleData";
-import LineChart from "@/components/charts/LineChart";
+import Vue from 'vue';
+import { namespace } from 'vuex-class';
+import { Component } from 'vue-property-decorator';
+import GoogleMap from '@/components/maps/GoogleMap';
+import VehicleData from '@/components/vehicle-data/VehicleData';
+import LineChart from '@/components/charts/LineChart';
 
-const SocketNameSpace = namespace("webSocketState/");
+const SocketNameSpace = namespace('webSocketState/');
 @Component({
-  name: "VehicleDashboard",
+  name: 'VehicleDashboard',
   components: {
     googleMap: GoogleMap,
     vehicleData: VehicleData,
@@ -60,14 +60,15 @@ const SocketNameSpace = namespace("webSocketState/");
   }
 })
 export default class VehicleDashboard extends Vue {
-  @SocketNameSpace.Getter("currentVehicleData") currentVehicleData!: any;
-  @SocketNameSpace.Getter("messages") messages!: any;
+  @SocketNameSpace.Getter('currentVehicleData') currentVehicleData!: any;
+  @SocketNameSpace.Getter('messages') messages!: any;
 
   timeout = 0;
   lastKey: number = 0;
-  speedChartKey: string = "speedChartKey";
-  socChartKey: string = "socChartKey";
-  mapChartKey: string = "mapChartKey";
+  speedChartKey: string = 'speedChartKey';
+  socChartKey: string = 'socChartKey';
+  mapChartKey: string = 'mapChartKey';
+  windowSize: number = 0;
 
   get vehicleData() {
     return this.currentVehicleData;
@@ -96,57 +97,57 @@ export default class VehicleDashboard extends Vue {
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/variables";
+@import '@/assets/sass/variables';
 $margin-left: 2rem;
+$component-width: 70%;
+$component-height: 14rem;
 
 .main-container {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  flex-wrap: wrap;
   width: 97%;
   margin: 0 2rem;
   padding: 0;
+  overflow: hidden;
 }
 
 .vehicle-container {
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 50%;
+  height: 47%;
   width: 100%;
+  margin: 0;
+  padding: 0;
   background-color: transparent;
-  padding: 1.5rem 0;
+
+  @media screen and (min-width: 500px) {
+    margin: 0 2rem;
+  }
+
+  @media screen and (min-width: $min-width) {
+    flex-direction: row;
+    width: 97%;
+    margin: 0 1rem;
+    padding: 1rem 0;
+  }
 }
 
-.map-container {
-  height: 15rem;
-  width: 46%;
-  max-width: 45vw;
-  margin: 0 $margin-left;
-  border-radius: 0.5rem;
-  border: 2px solid $background-color;
-}
-
-.data-container {
-  height: 15rem;
-  width: 30%;
-}
-
-.charts-container {
+.single-component {
   display: flex;
-  width: 97%;
-  margin: 0 $margin-left 1rem $margin-left;
-}
-
-.one-chart {
-  display: flex;
-  justify-content: space-between;
-  width: 50%;
-  margin: 0 2rem 0 0;
+  height: $component-height;
+  width: $component-width;
+  margin: 1rem $margin-left 0 $margin-left;
+  padding: 0;
   border-radius: 0.5rem;
   border: 2px solid $background-color;
   border-radius: 0.5rem;
+
+  @media screen and (min-width: $min-width) {
+    flex-direction: row;
+    width: 50%;
+    margin: 0 2rem 0 0;
+  }
 }
 </style>

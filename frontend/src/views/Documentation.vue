@@ -4,7 +4,8 @@
     <h1>Documentation about this Assignment</h1>
     <div class="divider" />
     <h2>This application was created with <i>Vue 2.6.1</i>, <i>SASS</i> and <i>TypeScript</i>. It also uses a 
-    Router with lazy loading and Vuex to handle the state. The general styling was based on the ViriCiti home site.</h2>
+    Router with lazy loading and Vuex to handle the state. The general styling was based on the ViriCiti home site.
+    The application is responsive.</h2>
     <ul>
       <li>
         Components
@@ -95,6 +96,11 @@
           <p>The application uses SASS and scoped styles. It contains a file for general variable declarations that are 
             used all over the application called <i>variables.scss</i>.
           </p>
+          <p>The application is responsive. Here are some view examples in different sizes: </p>
+            <p><img class="devices" src="../assets/viricity-iphone.png">
+            <img class="devices" src="../assets/viricity-ipad.png">
+            <img class="devices" src="../assets/viricity-ipad-2.png">
+          </p>
         </div>
       </li>
     </ul>
@@ -179,6 +185,13 @@
 .main-screen {
   margin: 1rem auto;
   width: 98%;
+  border-radius: 0.5rem;
+}
+
+.devices {
+  margin: 1rem auto;
+  width: auto;
+  max-width: 550px;
   border-radius: 0.5rem;
 }
 </style>

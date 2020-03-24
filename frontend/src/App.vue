@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="green-bar">
-      <label> English </label>
+      <label>English</label>
     </div>
     <div class="navigation-container">
       <div class="logo-container">
@@ -17,19 +17,20 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
 
 @Component({
-  name: "App"
+  name: 'App'
 })
 export default class App extends Vue {
-  el = "#viricity";
+  el = '#viricity';
 }
 </script>
 
 <style lang="scss">
-@import "@/assets/sass/variables";
+@import '@/assets/sass/variables';
+html,
 body {
   margin: 0;
   padding: 0;
@@ -41,6 +42,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  min-width: 100vw;
+  margin: 0;
 }
 
 .green-bar {
@@ -54,10 +57,12 @@ body {
     color: white;
   }
 }
+
 .navigation-container {
   display: flex;
   justify-content: space-between;
   height: 60px;
+  min-width: 100%;
   background-color: white;
 }
 
@@ -65,29 +70,47 @@ body {
   display: flex;
   justify-content: flex-start;
   padding: auto;
-  width: 30%;
+  width: 10%;
   > img {
-    height: 50px;
-    margin: auto 0 auto 2rem;
+    height: 25px;
+    margin: auto 0 auto 0.5rem;
+  }
+
+  @media screen and (min-width: $min-width) {
+    width: 30%;
+    > img {
+      height: 50px;
+      margin: auto 0 auto 2rem;
+    }
   }
 }
 
 .nav {
   display: flex;
   justify-content: flex-end;
-  width: 70%;
+  width: 80%;
   margin: 0;
   padding: 10px 0 0 0;
 
   a {
     max-height: 30px;
-    padding: 10px 2rem 0 0;
-    font-size: 14px;
+    padding: 1rem 1rem 0 0;
+    font-size: 10px;
     color: #363636;
     text-decoration: none;
 
     &:hover {
       color: $light-green;
+    }
+
+    @media screen and (min-width: 700px) {
+      padding: 15px 2rem 0 0;
+      font-size: 12px;
+    }
+
+    @media screen and (min-width: $min-width) {
+      padding: 10px 2rem 0 0;
+      font-size: 14px;
     }
   }
 }

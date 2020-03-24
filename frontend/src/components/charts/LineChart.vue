@@ -128,7 +128,7 @@ export default class LineChart extends Vue {
 @import '@/assets/sass/variables';
 
 .line-chart {
-  max-height: 200px;
+  height: 99%;
   width: 100%;
   margin: 0;
   padding: 0 0 0.2rem 0;
@@ -136,7 +136,7 @@ export default class LineChart extends Vue {
 
   > h1 {
     margin: 0;
-    padding: 0.3rem 0 0 0;
+    padding: 3rem 0 0 0;
     font-size: $title-medium;
     font-weight: bold;
   }

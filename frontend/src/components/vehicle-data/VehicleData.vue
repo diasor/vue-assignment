@@ -59,16 +59,21 @@ export default class VehicleData extends Vue {
   grid-row-gap: 0px;
   width: 100%;
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem 1rem 2rem;
   border: 2px solid $background-color;
   border-radius: 0.5rem;
   background-color: $background-color;
+
+  @media screen and (min-width: $min-width) {
+    padding: 0.5rem 4rem 1rem 4rem;
+  }
 }
 
 .data-cell {
   display: flex;
   justify-content: flex-start;
   padding: 0.2rem;
+  width: 100%;
 
   & label {
     font-family: $font-family;
