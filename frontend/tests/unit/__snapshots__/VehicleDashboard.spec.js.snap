@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VehicleDashboard.vue rendering renders component testing the Vuex getters and the access to the module namespace 1`] = `
+<div
+  class="main-container"
+>
+  <div
+    class="vehicle-container"
+  >
+    <div
+      class="single-component"
+    >
+      <google-map-stub
+        currentposition="function currentVehicle() {
+      return {
+        time: \\"1511437398000\\",
+        energy: 57.134,
+        gps: [52.07914733886719, 5.119481563568115],
+        odo: 88530.067,
+        speed: 17,
+        soc: 63.2,
+        parsedTime: \\"2017-11-23T11:43:18.000Z\\"
+      };
+    }"
+        previouspositions="function messageList() {
+      return [{
+        time: \\"1511437145000\\",
+        energy: 56.283,
+        gps: [52.08335494995117, 5.124546527862549],
+        odo: 88529.27,
+        speed: 21,
+        soc: 64,
+        parsedTime: \\"2017-11-23T11:39:05.000Z\\"
+      }, {
+        time: \\"1511437398000\\",
+        energy: 57.134,
+        gps: [52.07914733886719, 5.119481563568115],
+        odo: 88530.067,
+        speed: 17,
+        soc: 63.2,
+        parsedTime: \\"2017-11-23T11:43:18.000Z\\"
+      }];
+    }"
+      />
+    </div>
+     
+    <div
+      class="single-component"
+    >
+      <vehicle-data-stub
+        energy="0"
+        odo="0"
+        soc="0"
+        speed="0"
+      />
+    </div>
+  </div>
+   
+  <div
+    class="vehicle-container"
+  >
+    <div
+      class="single-component"
+    >
+      <line-chart-stub
+        data="function messageList() {
+      return [{
+        time: \\"1511437145000\\",
+        energy: 56.283,
+        gps: [52.08335494995117, 5.124546527862549],
+        odo: 88529.27,
+        speed: 21,
+        soc: 64,
+        parsedTime: \\"2017-11-23T11:39:05.000Z\\"
+      }, {
+        time: \\"1511437398000\\",
+        energy: 57.134,
+        gps: [52.07914733886719, 5.119481563568115],
+        odo: 88530.067,
+        speed: 17,
+        soc: 63.2,
+        parsedTime: \\"2017-11-23T11:43:18.000Z\\"
+      }];
+    }"
+        datakey="speed"
+        title="Speed Profile"
+        xtitle="Time"
+        ytitle="Speed (km/h)"
+      />
+    </div>
+     
+    <div
+      class="single-component"
+    >
+      <line-chart-stub
+        data="function messageList() {
+      return [{
+        time: \\"1511437145000\\",
+        energy: 56.283,
+        gps: [52.08335494995117, 5.124546527862549],
+        odo: 88529.27,
+        speed: 21,
+        soc: 64,
+        parsedTime: \\"2017-11-23T11:39:05.000Z\\"
+      }, {
+        time: \\"1511437398000\\",
+        energy: 57.134,
+        gps: [52.07914733886719, 5.119481563568115],
+        odo: 88530.067,
+        speed: 17,
+        soc: 63.2,
+        parsedTime: \\"2017-11-23T11:43:18.000Z\\"
+      }];
+    }"
+        datakey="soc"
+        title="State Of Charge Profile"
+        xtitle="Time"
+        ytitle="SoC (%)"
+      />
+    </div>
+  </div>
+</div>
+`;

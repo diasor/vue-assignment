@@ -12,34 +12,32 @@ const state: WebSocketState = {
   isConnected: false,
   messageList: [],
   connectionSocket: {},
-  currentVehicle: {} as Message,
-  currentSpeedData: [],
-  currentSOCData: []
+  currentVehicle: {} as Message
+  // currentSpeedData: [],
+  // currentSOCData: []
 };
 
 // getters
 export const getters: GetterTree<WebSocketState, RootState> = {
-  messages: state => state.messageList,
-  isConnected: state => state.isConnected,
-  currentVehicleData: state => state.currentVehicle,
-  currentSpeedData: state => state.messageList,
-  currentSOCData: state => state.currentSOCData
+  messages: (state: WebSocketState) => state.messageList,
+  isConnected: (state: WebSocketState) => state.isConnected,
+  currentVehicleData: (state: WebSocketState) => state.currentVehicle
 };
 
 const mutations: MutationTree<WebSocketState> = {
-  CONNECT(state, socket) {
+  CONNECT(state: WebSocketState, socket: any) {
     state.connectionSocket = socket;
   },
 
-  IS_CONNECTED(state, isConnected: boolean) {
+  IS_CONNECTED(state: WebSocketState, isConnected: boolean) {
     state.isConnected = isConnected;
   },
 
-  DISCONNECT(state) {
+  DISCONNECT(state: WebSocketState) {
     state.isConnected = false;
   },
 
-  ADD_MESSAGE(state, message) {
+  ADD_MESSAGE(state: WebSocketState, message: any) {
     const gps: string[] = split(message.gps, "|", 2);
     const gpsCoordinates: number[] = gps.map((element: string) => parseFloat(element));
     const parsedTime = new Date(moment(message.time).format("YYYY-MM-DD HH:mm:ss"));
@@ -52,7 +50,7 @@ const mutations: MutationTree<WebSocketState> = {
     }
   },
 
-  SET_CURRENT_VEHICLE(state, vehicleData: Message) {
+  SET_CURRENT_VEHICLE(state: WebSocketState, vehicleData: Message) {
     state.currentVehicle = { ...vehicleData };
   }
 };

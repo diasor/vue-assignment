@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VehicleData.vue rendering renders component 1`] = `
+<div
+  class="vehicle-data"
+>
+  <div
+    class="data-cell data-cell__speed"
+  >
+    <label>
+      Current Speed
+    </label>
+  </div>
+   
+  <div
+    class="data-cell data-cell__speed-bar"
+  >
+    <div
+      class="progress-bar"
+      data-v-8248d938=""
+      id="progress-bar-line"
+    >
+      <svg
+        id="line-progress"
+        style="height: 30px; width: 350px;"
+      >
+        <line
+          stroke="#C0C0C0"
+          stroke-width="30"
+          x1="0"
+          x2="100%"
+          y1="50%"
+          y2="50%"
+        />
+        <line
+          stroke="#696969"
+          stroke-width="30px"
+          x1="0"
+          x2="100.3%"
+          y1="50%"
+          y2="50%"
+        />
+        <text
+          style="display: inherit; fill: #FFFFFF; font-size: 12px; font-family: Montserrat; text-shadow: 1px 1px 1px #000000;"
+          x="43%"
+          y="61%"
+        >
+           100.3% 
+        </text>
+      </svg>
+    </div>
+  </div>
+   
+  <div
+    class="data-cell data-cell__soc"
+  >
+    <label>
+      State Of Change
+    </label>
+  </div>
+   
+  <div
+    class="data-cell data-cell__soc-bar"
+  >
+    <div
+      class="progress-bar"
+      data-v-8248d938=""
+      id="progress-bar-line"
+    >
+      <svg
+        id="line-progress"
+        style="height: 30px; width: 350px;"
+      >
+        <line
+          stroke="#C0C0C0"
+          stroke-width="30"
+          x1="0"
+          x2="100%"
+          y1="50%"
+          y2="50%"
+        />
+        <line
+          stroke="#696969"
+          stroke-width="30px"
+          x1="0"
+          x2="45.6%"
+          y1="50%"
+          y2="50%"
+        />
+        <text
+          style="display: inherit; fill: #FFFFFF; font-size: 12px; font-family: Montserrat; text-shadow: 1px 1px 1px #000000;"
+          x="43%"
+          y="61%"
+        >
+           45.6% 
+        </text>
+      </svg>
+    </div>
+  </div>
+   
+  <div
+    class="data-cell data-cell__energy"
+  >
+    <label>
+      Energy
+    </label>
+  </div>
+   
+  <div
+    class="data-cell data-cell__odo"
+  >
+    <label>
+      Odometer
+    </label>
+  </div>
+   
+  <div
+    class="data-cell data-cell__energy-data"
+  >
+    <label>
+      56.2
+    </label>
+  </div>
+   
+  <div
+    class="data-cell data-cell__odo-data"
+  >
+    <label>
+      88
+    </label>
+  </div>
+</div>
+`;

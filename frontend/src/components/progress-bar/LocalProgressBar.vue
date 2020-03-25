@@ -55,6 +55,7 @@ export default class LocalProgressBar extends Vue {
   }
 
   mounted() {
+    this.windowSize = window.innerWidth;
     window.addEventListener('resize', () => {
       this.windowSize = window.innerWidth;
     });

@@ -4,8 +4,6 @@ export interface WebSocketState {
   isConnected: boolean;
   connectionSocket: any;
   currentVehicle: Message;
-  currentSpeedData: GraphData[];
-  currentSOCData: GraphData[];
 }
 
 // Deal model

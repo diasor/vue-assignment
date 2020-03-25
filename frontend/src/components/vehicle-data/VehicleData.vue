@@ -4,13 +4,13 @@
       <label>Current Speed</label>
     </div>
     <div class="data-cell data-cell__speed-bar">
-      <LocalProgressBar paramType="line" :paramValue="speed" />
+      <local-progress-bar paramType="line" :paramValue="speed" />
     </div>
     <div class="data-cell data-cell__soc">
       <label>State Of Change</label>
     </div>
     <div class="data-cell data-cell__soc-bar">
-      <LocalProgressBar paramType="line" :paramValue="soc" />
+      <local-progress-bar paramType="line" :paramValue="soc" />
     </div>
     <div class="data-cell data-cell__energy">
       <label>Energy</label>
@@ -28,14 +28,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import LocalProgressBar from '@/components/progress-bar/LocalProgressBar';
-import { Component, Prop } from 'vue-property-decorator';
+import Vue from "vue";
+import LocalProgressBar from "@/components/progress-bar/LocalProgressBar";
+import { Component, Prop } from "vue-property-decorator";
 
 @Component({
-  name: 'VehicleData',
+  name: "VehicleData",
   components: {
-    LocalProgressBar
+    localProgressBar: LocalProgressBar
   }
 })
 export default class VehicleData extends Vue {
@@ -49,7 +49,7 @@ export default class VehicleData extends Vue {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/sass/variables';
+@import "@/assets/sass/variables";
 
 .vehicle-data {
   display: grid;
